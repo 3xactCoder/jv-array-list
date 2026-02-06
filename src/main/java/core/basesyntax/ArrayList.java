@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 public class ArrayList<T> implements List<T> {
     private static final int DEFAULT_SIZE = 10;
+    private static final int MAGIC_NUM = 2;
     private int count;
     private Object[] elements;
 
@@ -34,8 +35,13 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void addAll(List<T> list) {
-        for (int i = 0;i < list.size();i++) {
-            add(list.get(i));
+        Object[] temp = new Object[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            temp[i] = list.get(i);
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            add((T) temp[i]);
         }
     }
 
@@ -94,7 +100,7 @@ public class ArrayList<T> implements List<T> {
 
     public void checkCapacity() {
         if (count == elements.length) {
-            int newSize = elements.length + elements.length / 2;
+            int newSize = elements.length + elements.length / MAGIC_NUM;
             Object [] newElem = new Object[newSize];
             System.arraycopy(elements,0,newElem,0,elements.length);
             elements = newElem;
