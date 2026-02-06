@@ -96,8 +96,8 @@ public class ArrayList<T> implements List<T> {
         if (count == elements.length) {
             int newSize = elements.length + elements.length / 2;
             Object [] newElem = new Object[newSize];
-            elements = Arrays.copyOf(elements,newSize);
-            System.arraycopy(elements,0,newElem,0,newSize);
+            System.arraycopy(elements,0,newElem,0,elements.length);
+            elements = newElem;
         }
     }
 
